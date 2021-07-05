@@ -33,6 +33,8 @@ public:
         this->eTrigger = bleEventTrigger;
 
         server           = BLEDevice::createServer( );
+        
+        server->advertiseOnDisconnect( true );
 
         serviceFullState = server          ->createService       ( UUID_SERVICE_FULLSTATE );
         charFullState    = serviceFullState->createCharacteristic( UUID_CHARACT_FULLSTATE );

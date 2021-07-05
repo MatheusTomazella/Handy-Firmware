@@ -43,25 +43,17 @@ esp_err_t Main::setup ( void ) {
     bleController   = BleController( (char*) BLE_DEVICE_NAME, &bleTable, &bleEventTrigger );
 
     storage.init();
-    if ( storage.isEmpty( "modes" ) != ESP_OK ) storage.write( "modes", "name1;0,0,0,0,0;1,1,1,1,1|name2;0,0,0,0,0;1,1,1,1,1" );
+    if ( storage.isEmpty( "modes" ) != ESP_OK ) storage.write( "modes", 
+        "name1;0.0.0,0.0.0,0.0.0,0.0.0,0.0.0;180.0.0,180.0.0,180.0.0,180.0.0,180.0.0|name2;0.0.0,0.0.0,0.0.0,0.0.0,0.0.0;180.0.0,180.0.0,180.0.0,180.0.0,180.0.0" );
     hand.initModes( &storage );
-
-    // static Mode vtnc = Mode( (char*) "vtnc",       { 0, 0, 0, 0, 0 }, { 1, 1, 0, 1, 1 } );
-    // static Mode ptt  = Mode( (char*) "Power tool", { 1, 1, 1, 0, 1 }, { 1, 1, 1, 1, 1 } );
-    // static Mode ok   = Mode( (char*) "OK",         { 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 0 } );
-    // printf("%d",hand.addMode( &vtnc ));
-    // printf("%d",hand.addMode( &ptt  ));
-    // printf("%d",hand.addMode( &ok   ));
 
     hController.init();
 
     return status;
 }
-int angle = 0;
 void Main::loop ( void ) {
 
     hController.listen();
 
-    /* Delay. Prevents false positives */
-    vTaskDelay(100 / portTICK_PERIOD_MS); 
+    vTaskDelay(pdMS_TO_TICKS(100)); 
 }

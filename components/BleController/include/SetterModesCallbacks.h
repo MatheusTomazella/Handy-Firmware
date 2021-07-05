@@ -14,7 +14,6 @@ public:
         this->eTrigger = eTrigger;
     }
 
-        /* Is a Command to Toggle */
     void onRead(NimBLECharacteristic* pCharacteristic) {
         printf("\nToggle Mode\n");
         eTrigger->toggleMode();
